@@ -41,7 +41,7 @@ public class BookDao {
 		 bookRepository.deleteById(id);
 	}
 	
-	//fetch a book by author
+	//fetch or get a book by author name
 	public List<Book> fetchBookByAuthor(String author) {
 		return bookRepository.findByAuthor(author);
 	}
