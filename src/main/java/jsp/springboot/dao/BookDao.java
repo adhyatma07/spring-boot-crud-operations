@@ -46,7 +46,7 @@ public class BookDao {
 		return bookRepository.findByAuthor(author);
 	}
 	
-	//fetch Book with price > value
+	//fetch Book which has price greater than passed price
 	public List<Book> fetchBookByGreaterThan(double price) {
 		return bookRepository.findByPriceGreaterThan(price);
 	}
