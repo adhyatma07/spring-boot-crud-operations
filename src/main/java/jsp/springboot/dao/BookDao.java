@@ -16,7 +16,7 @@ public class BookDao {
 	@Autowired
 	private BookRepository bookRepository;
 	
-	//save a one book record
+	//to save a single book record
 	public Book saveBook(Book book) {
 		return bookRepository.save(book);
 	}
