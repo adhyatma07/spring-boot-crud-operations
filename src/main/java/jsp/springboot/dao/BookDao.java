@@ -5,6 +5,9 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
 import jsp.springboot.entity.Book;
@@ -69,5 +72,20 @@ public class BookDao {
 	//fetch Book by genre
 	public List<Book> fetchBookGenre(String genre) {
 		return bookRepository.getBookByGenre(genre);
+	}
+	
+	//Pagination
+	public Page<Book> fetchBookByPagination(int pageNumber, int pageSize) {
+		return bookRepository.findAll(PageRequest.of(pageNumber, pageSize));
+	}
+	
+	//Sorting 
+	public List<Book> fetchBookBySorting(String field) {
+		return bookRepository.findAll(Sort.by(field).ascending());
+	}
+	
+	//Both Pagination and Sorting
+	public Page<Book> fetchBookByPaginationAndSorting(int pageNumber, int pageSize, String field) {
+		return bookRepository.findAll(PageRequest.of(pageNumber, pageSize,Sort.by(field).descending()));
 	}
 }

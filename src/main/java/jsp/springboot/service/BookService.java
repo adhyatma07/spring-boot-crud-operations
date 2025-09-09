@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -189,6 +190,53 @@ public class BookService {
 			response.setData(books);
 			
 			return new ResponseEntity<ServerResponse<List<Book>>>(response,HttpStatus.OK);
+		}
+		else 
+			throw new NoRecordFoundException("No records found");
+	}
+	
+	//fetch a book by pagination
+	public ResponseEntity<ServerResponse<Page<Book>>> getBookByPagination(int pageNumber, int pageSize) {
+		ServerResponse<Page<Book>> response = new ServerResponse<Page<Book>>();
+		Page<Book> pages  =bookDao.fetchBookByPagination(pageNumber, pageSize);
+		
+		if(!pages.isEmpty()) {
+			response.setStatusCode(HttpStatus.OK.value());
+			response.setMessage("Book records retrieved");
+			response.setData(pages);
+			
+			return new ResponseEntity<ServerResponse<Page<Book>>>(response,HttpStatus.OK);
+		} else 
+			throw new NoRecordFoundException("No records found");
+	}
+	
+	//fetch a book by sorting
+	public ResponseEntity<ServerResponse<List<Book>>> getBookBySorting(String field) {
+		ServerResponse<List<Book>> response = new ServerResponse<List<Book>>();
+		List<Book> books = bookDao.fetchBookBySorting(field);
+		
+		if(books.size() > 0) {
+			response.setStatusCode(HttpStatus.OK.value());
+			response.setMessage("Sorted Book Records retrieved");
+			response.setData(books);
+			
+			return new ResponseEntity<ServerResponse<List<Book>>>(response,HttpStatus.OK);
+		} else 
+			throw new NoRecordFoundException("No records found");		
+	}
+	
+	//fetch a book by both pagination and sorting
+	public ResponseEntity<ServerResponse<Page<Book>>> getBookByPaginationAndSorting(int pageNumber, int pageSize, String field) {
+		ServerResponse<Page<Book>> response = new ServerResponse<Page<Book>>();
+		
+		Page<Book> pages = bookDao.fetchBookByPaginationAndSorting(pageNumber, pageSize, field);
+		
+		if(!pages.isEmpty()) {
+			response.setStatusCode(HttpStatus.OK.value());
+			response.setMessage("Paginated and Sorted the Book records");
+			response.setData(pages);
+			
+			return new ResponseEntity<ServerResponse<Page<Book>>>(response,HttpStatus.OK);
 		}
 		else 
 			throw new NoRecordFoundException("No records found");

@@ -2,6 +2,7 @@ package jsp.springboot.controller;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -82,6 +83,21 @@ public class BookController {
 	@GetMapping("/genre/{genre}")
 	public ResponseEntity<ServerResponse<List<Book>>> fetchBookByGenre(@PathVariable String genre) {
 		return bookService.getBookByGenre(genre);
+	}
+	
+	@GetMapping("/{pageNumber}/{pageSize}")
+	public ResponseEntity<ServerResponse<Page<Book>>> fetchBookByPagination(@PathVariable int pageNumber, @PathVariable int pageSize) {
+		return bookService.getBookByPagination(pageNumber, pageSize);
+	}
+	
+	@GetMapping("/{field}")
+	public ResponseEntity<ServerResponse<List<Book>>> fetchBookBySorting(@PathVariable String field) {
+		return bookService.getBookBySorting(field);
+	}
+	
+	@GetMapping("/{pageNumber}/{pageSize}/{field}")
+	public ResponseEntity<ServerResponse<Page<Book>>> fetchBookByPaginationAndSorting(@PathVariable int pageNumber, @PathVariable int pageSize, @PathVariable String field) {
+		return bookService.getBookByPaginationAndSorting(pageNumber, pageSize, field);
 	}
 }
 
