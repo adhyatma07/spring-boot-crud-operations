@@ -18,7 +18,7 @@ import jsp.springboot.entity.Book;
 import jsp.springboot.service.BookService;
 
 @RestController
-@RequestMapping("/book")
+@RequestMapping("/books")
 public class BookController {
 	
 	
@@ -57,7 +57,7 @@ public class BookController {
 
 	@GetMapping("/author/{author}")
 	public ResponseEntity<ServerResponse<List<Book>>> getBookByAuthor(@PathVariable String author) {
-		return bookService.fetchBooByAuthor(author);
+		return bookService.fetchBookByAuthor(author);
 	}
 	
 	@GetMapping("/price/{price}")
@@ -85,17 +85,17 @@ public class BookController {
 		return bookService.getBookByGenre(genre);
 	}
 	
-	@GetMapping("/{pageNumber}/{pageSize}")
+	@GetMapping("/page/{pageNumber}/{pageSize}")
 	public ResponseEntity<ServerResponse<Page<Book>>> fetchBookByPagination(@PathVariable int pageNumber, @PathVariable int pageSize) {
 		return bookService.getBookByPagination(pageNumber, pageSize);
 	}
 	
-	@GetMapping("/{field}")
+	@GetMapping("/sort/{field}")
 	public ResponseEntity<ServerResponse<List<Book>>> fetchBookBySorting(@PathVariable String field) {
 		return bookService.getBookBySorting(field);
 	}
 	
-	@GetMapping("/{pageNumber}/{pageSize}/{field}")
+	@GetMapping("/page/{pageNumber}/{pageSize}/sort/{field}")
 	public ResponseEntity<ServerResponse<Page<Book>>> fetchBookByPaginationAndSorting(@PathVariable int pageNumber, @PathVariable int pageSize, @PathVariable String field) {
 		return bookService.getBookByPaginationAndSorting(pageNumber, pageSize, field);
 	}

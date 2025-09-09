@@ -99,7 +99,7 @@ public class BookService {
 	}
 
 	//fetch a book by author
-	public ResponseEntity<ServerResponse<List<Book>>> fetchBooByAuthor(String author) {
+	public ResponseEntity<ServerResponse<List<Book>>> fetchBookByAuthor(String author) {
 		List<Book> books = bookDao.fetchBookByAuthor(author);
 		ServerResponse<List<Book>> response = new ServerResponse<List<Book>>();
 		
