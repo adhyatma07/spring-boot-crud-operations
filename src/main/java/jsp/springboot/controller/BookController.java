@@ -18,7 +18,7 @@ import jsp.springboot.entity.Book;
 import jsp.springboot.service.BookService;
 
 @RestController
-@RequestMapping("/books")
+@RequestMapping("/api/books")
 public class BookController {
 	
 	
