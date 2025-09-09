@@ -55,46 +55,55 @@ public class BookController {
 	    return bookService.deleteBookById(id);
 	}
 
+	//fetch a book record by author name
 	@GetMapping("/author/{author}")
 	public ResponseEntity<ServerResponse<List<Book>>> getBookByAuthor(@PathVariable String author) {
 		return bookService.fetchBookByAuthor(author);
 	}
 	
+	//get a book record by price
 	@GetMapping("/price/{price}")
 	public ResponseEntity<ServerResponse<List<Book>>> getBookGreaterThan(@PathVariable double price) {
 		return bookService.getBookByPriceGreaterThan(price);
 	}
 	
+	//get a book record between price range
 	@GetMapping("/price/{start}/{end}")
 	public ResponseEntity<ServerResponse<List<Book>>> getBooksByPriceRange(@PathVariable double start, @PathVariable double end) {
 		return bookService.getBookByPriceBetween(start, end);
 	}
 	
+	//get a book record by published year
 	@GetMapping("/publishedYear/{publishedYear}")
 	public ResponseEntity<ServerResponse<List<Book>>> fetchBookByPublishedYear(@PathVariable int publishedYear) {
 		return bookService.getBookByPublishedYear(publishedYear);
 	}
 	
+	//get a book record by its availability
 	@GetMapping("/availability/{availability}")
 	public ResponseEntity<ServerResponse<List<Book>>> fetchBookByAvailabilty(@PathVariable boolean availability) {
 		return bookService.getBookByAvailability(availability);
 	}
 	
+	//get a book by genre
 	@GetMapping("/genre/{genre}")
 	public ResponseEntity<ServerResponse<List<Book>>> fetchBookByGenre(@PathVariable String genre) {
 		return bookService.getBookByGenre(genre);
 	}
 	
+	//get a book with pagination
 	@GetMapping("/page/{pageNumber}/{pageSize}")
 	public ResponseEntity<ServerResponse<Page<Book>>> fetchBookByPagination(@PathVariable int pageNumber, @PathVariable int pageSize) {
 		return bookService.getBookByPagination(pageNumber, pageSize);
 	}
 	
+	//get a book by sorting
 	@GetMapping("/sort/{field}")
 	public ResponseEntity<ServerResponse<List<Book>>> fetchBookBySorting(@PathVariable String field) {
 		return bookService.getBookBySorting(field);
 	}
 	
+	//combination of pagination and sorting
 	@GetMapping("/page/{pageNumber}/{pageSize}/sort/{field}")
 	public ResponseEntity<ServerResponse<Page<Book>>> fetchBookByPaginationAndSorting(@PathVariable int pageNumber, @PathVariable int pageSize, @PathVariable String field) {
 		return bookService.getBookByPaginationAndSorting(pageNumber, pageSize, field);
